@@ -8,7 +8,7 @@ class shower:
         self.s = []
         self.tank_store = []
 
-    def run(self,N):
+    def run_original(self,N):
         for i in range(N):
             if self.tank < self.L:
                 self.tank += 1
@@ -24,6 +24,23 @@ class shower:
             else:
                 self.s.append(0)
             self.tank_store.append(self.tank)
+
+    def run(self,N):
+        for i in range(N):
+            self.tank_store.append(self.tank)
+            if self.tank == L:
+                self.tank -= 1
+                self.s.append(-1)
+            elif self.tank == 0:
+                self.tank += 1
+                self.s.append(1)
+            else:
+                if np.random.rand() > 0.5:
+                    self.tank -= 1
+                    self.s.append(-1)
+                else:
+                    self.tank += 1
+                    self.s.append(1)
 
     def null(self,N):
         for i in range(N):
