@@ -28,7 +28,7 @@ class shower:
     def run(self,N):
         for i in range(N):
             self.tank_store.append(self.tank)
-            if self.tank == L:
+            if self.tank == self.L:
                 self.tank -= 1
                 self.s.append(-1)
             elif self.tank == 0:
@@ -53,8 +53,15 @@ class shower:
                 self.s.append(0)
             self.tank_store.append(self.tank)
 
-    def sum(self,M):
+    def sum(self,M,step = 10):
         cumsum = np.cumsum(self.s).astype('float')
         self.sigma = []
-        for i in np.arange(1,M,10):
+        for i in np.arange(1,M,step):
             self.sigma.append(np.var((cumsum[i:]-cumsum[:-i])))
+
+    def log_sum(self,M,n):
+        cumsum = np.cumsum(self.s).astype('float')
+        self.sigma = []
+        self.M = np.logspace(0,M,n,dtype = 'int')
+        for i in self.M:
+            self.sigma.append(np.var((cumsum[i:]-cumsum[:-i])/i))
